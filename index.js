@@ -150,6 +150,24 @@ import {
     uploadToKraken
 } from './lib/upload.js';
 import {
+ChatGptBing,
+BingImageCreator,
+Aichat,
+Acytoo,
+Aivvm,
+CohereAPI,
+Bardie,
+botika,
+ChatBase,
+Hercai,
+Liaobots,
+blackboxchat,
+blackboximg,
+lbbAi,
+mariTalk,
+talkai
+} from './lib/ai.js';
+import {
     Telegraf
 } from 'telegraf';
 import help from './lib/help.js';
@@ -271,12 +289,11 @@ bot.on('message', async (lol) => {
         const isOwner = ownerId.includes(user.username);
 
         const reply = async (content, opt = {}) => {
-            await lol.sendChatAction('typing');
-
             if (typeof content === 'string') {
                 for (let x = 0; x < content.length; x += 4096) {
                     await lol.reply(content.slice(x, x + 4096), {
                         disable_web_page_preview: false,
+                        reply_to_message_id: lol.message.message_id,
                         ...opt
                     });
                 }
@@ -285,6 +302,7 @@ bot.on('message', async (lol) => {
                 for (let x = 0; x < jsonString.length; x += 4096) {
                     await lol.reply(jsonString.slice(x, x + 4096), {
                         disable_web_page_preview: false,
+                        reply_to_message_id: lol.message.message_id,
                         ...opt
                     });
                 }
@@ -304,6 +322,18 @@ bot.on('message', async (lol) => {
         const isDocument = lol.message.hasOwnProperty('document');
         const isAnimation = lol.message.hasOwnProperty('animation');
         const isMedia = isImage || isVideo || isAudio || isSticker || isContact || isLocation || isDocument || isAnimation;
+        const action = isMedia
+  ? isImage ? 'upload_photo' :
+    isVideo ? 'record_video' :
+    isAudio ? 'record_audio' :
+    isDocument ? 'upload_document' :
+    isLocation ? 'find_location' :
+    isAnimation ? 'record_video_note' :
+    'typing'
+  : 'typing';
+if (isCmd) {
+await lol.sendChatAction(action);
+}
 
         const quotedMessage = lol.message.reply_to_message || {};
         const isQuotedImage = quotedMessage.hasOwnProperty('photo');
@@ -361,536 +391,402 @@ bot.on('message', async (lol) => {
             case 'aichatonline':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await aichatonline(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'aidutu':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await aidutu(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'binjie':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await binjie(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'c3a0chat':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await c3a0chat(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'cgptonline':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await cgptonline(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatbotji1z':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatbotji1z(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatg':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatg(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgbt':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgbt(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgbtaudio':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgbtaudio(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgptai':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgptai(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgptbestim':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgptbestim('chat', query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgptdemo':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgptdemo(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgptt':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgptt(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'chatgpttaudio':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await chatgpttaudio(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'cveoy':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await cveoy(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'docsbot':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await docsbot(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'geekgpt':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await geekgpt(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gptchatly':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gptchatly(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gptdemostream':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gptdemostream('chat', query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gptgo':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gptgo(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gptphotos':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gptphotos(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gptpictures':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gptpictures(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gptzw7':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gptzw7(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'hfgpt2':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await hfgpt2(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'lemurchat':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await lemurchat(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'lovebaby':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await lovebaby(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'onlinegpt':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await onlinegpt(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'openaiapi2d':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await openaiapi2d(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'openaiazure':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await openaiazure(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'reveseryai':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await reveseryai(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'shanti':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await shanti(query, 'gpt')
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'vocai':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await vocai(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'wewordle':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await wewordle(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'aio':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await aio(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'downloader4twitter':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await downloader4twitter(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'facebooks':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await faceBooks(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'igdown':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await igDown(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'mediafires':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await mediafires(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'pinterestvideodownloader':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await pinterestvideodownloader(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'spotifydown':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await spotifyDown(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'spotifysearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await spotifySearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'stickertelegram':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await stickerTelegram(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'stickertelegramdownload':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await stickerTelegramDownload(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ttdowns':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await ttDowns(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ttdown2':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await ttdown2(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'xnxxdownloader':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await xnxxDownloader(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'xnxxsearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await xnxxSearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'anime':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await anime(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'cekresi':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await cekResi(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'enhanceimg':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await enhanceImg(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'filmapikdl':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await filmApikDl(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'filmapiks':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await filmApikS(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'findsongs':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await findSongs(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'getcerpen':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await getCerpen(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'getcerpenhorror':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await getCerpenHorror(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'igstalk':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await igStalk(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'otakudesusearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await otakuDesuSearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'randomcerpen':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await randomCerpen(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'similarband':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await similarBand(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'tiktoktts':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await tiktokTts(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'truthordare':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await truthOrDare(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ttsmodel':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await ttsModel(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'translate':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await translate(query, 'id')
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'langlist':
                 response = await langList()
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'get':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await getData(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'searchdongeng':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await searchDongeng(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'readdongeng':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await readDongeng(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'carbon':
@@ -927,508 +823,392 @@ bot.on('message', async (lol) => {
             case 'dojindsgetimg':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await dojindsgetimg(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'doujindesu':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await doujindesu(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'doujindesuch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await doujindesuch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'doujindesulatest':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await doujindesulatest(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'doujindesusearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await doujindesusearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'facebook':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await facebook(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gethentailist':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await getHentaiList(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gore':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await gore(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'hentai':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await hentai(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'igdl':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await igdl(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'igstory':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await igstory(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'joox':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await joox(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'komikindogetch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await komikindogetch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'komikindosearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await komikindosearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'kusonimeinfo':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await kusonimeinfo(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'kusonimelatest':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await kusonimelatest(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'mangatoons':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await mangatoons(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nekopoi':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nekopoi(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nekopoilatest':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nekopoilatest(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nekopoisearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nekopoisearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nhentai':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nhentai(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nhentaisearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nhentaisearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nhgetimg':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nhgetimg(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nkpepsddl':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await nkpepsddl(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'otakudesu':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await otakudesu(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'otakudesugetepsddl':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await otakudesugetepsddl(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'otakudesuinfo':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await otakudesuinfo(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'otakudesuongoing':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await otakudesuongoing(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'pin':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await pin(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'porno':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await porno(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'quotes':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await quotes(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'quotesanime':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await quotesAnime(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'searchgit':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await searchGit(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'sektekomiksearch':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await sektekomiksearch(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ssweb':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await ssweb(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ssweb2':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await ssweb2(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'textpro':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await textpro(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'tiktok':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await tiktok(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ttdown':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await ttdown(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'twitter':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await twitter(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'webtoons':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await webtoons(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
 
             case 'cuaca':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await infoCuaca(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'fbdown':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await fbdown(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'shortener':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await shortener(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'catbox':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await catbox(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'fexnet':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await fexnet(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'fileio':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await fileio(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'gofile':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await gofile(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'hostfile':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await hostfile(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'nullbyte':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await nullbyte(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'pixeldrain':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await pixeldrain(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'tmpfiles':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await tmpfiles(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'top4top':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await top4top(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'transfersh':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await transfersh(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'ucarecdn':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await ucarecdn(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'uploadpomf2':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await uploadPomf2(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'uploadtodiscdn':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await uploadToDiscdn(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'uploadtokraken':
-                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} Hello!`);
-                if (!mediaLink) return await reply("Terjadi kesalahan!");
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
                 databuff = await getDataBuffer(mediaLink);
-                if (!databuff) return await reply("Terjadi kesalahan!");
+                if (!databuff) return await reply("Buffer tidak ada!");
                 response = await uploadToKraken(databuff)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'tagme':
@@ -1641,21 +1421,114 @@ Nama Pengguna Kamu Akan Hilang Dari Database Bot Apa Bila Bot Sedang Perbaikan A
                 fs.writeFileSync('./data/user.json', JSON.stringify(_user))
                 await reply('Sukses')
                 break
+                
+                case 'acytoo':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Acytoo(query)
+                await reply(response)
+                break;
+                
+                case 'aichat':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Aichat(query)
+                await reply(response)
+                break;
+                
+                case 'aivvm':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Aivvm(query)
+                await reply(response)
+                break;
+                
+                case 'bardie':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Bardie(query)
+                await reply(response)
+                break;
+                
+                case 'bingimagecreator':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await BingImageCreator(query)
+                await reply(response)
+                break;
+                
+                case 'chatbase':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ChatBase(query)
+                await reply(response)
+                break;
+                
+                case 'chatgptbing':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ChatGptBing(query)
+                await reply(response)
+                break;
+                
+                case 'cohereapi':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await CohereAPI(query)
+                await reply(response)
+                break;
+                
+                case 'hercai':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Hercai(query)
+                await reply(response)
+                break;
+                
+                case 'liaobots':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Liaobots(query)
+                await reply(response)
+                break;
+                
+                case 'blackboxchat':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await blackboxchat(query)
+                await reply(response)
+                break;
+                
+                case 'blackboximg':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await blackboximg(query)
+                await reply(response)
+                break;
+                
+                case 'botika':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await botika(query)
+                await reply(response)
+                break;
+                
+                case 'lbbai':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await lbbAi(query)
+                await reply(response)
+                break;
+                
+                case 'maritalk':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await mariTalk(query)
+                await reply(response)
+                break;
+                
+                case 'talkai':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await talkai(query)
+                await reply(response)
+                break;
+                
 
             case '>':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await functionEval(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case '$':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await functionExec(query)
-                await reply(response, {
-                    reply_to_message_id: lol.message.message_id
-                })
+                await reply(response)
                 break;
 
             case 'test':

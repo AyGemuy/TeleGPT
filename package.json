@@ -25,6 +25,7 @@
         "chalk": "*",
         "mime-types": "*",
         "qs": "*",
+        "syntax-error": "*",
         "performance-now": "*",
         "moment-timezone": "*",
         "child_process": "*"
