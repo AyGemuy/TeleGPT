@@ -148,7 +148,8 @@ import {
     ucarecdn,
     uploadPomf2,
     uploadToDiscdn,
-    uploadToKraken
+    uploadToKraken,
+    filebin
 } from './lib/upload.js';
 import {
 ChatGptBing,
@@ -170,7 +171,8 @@ talkai,
 toAnime
 } from './lib/ai.js';
 import {
-    Telegraf
+    Telegraf,
+    Markup
 } from 'telegraf';
 import help from './lib/help.js';
 import tele from './lib/tele.js';
@@ -1746,6 +1748,15 @@ await reply('wait')
                 })
                 break;
                 
+                case 'filebin':
+                if (!(isQuotedImage || isQuotedAnimation || isQuotedVideo || isQuotedDocument)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
+                databuff = await getDataBuffer(mediaLink);
+                if (!databuff) return await reply("Buffer tidak ada!");
+                response = await filebin(databuff)
+                await reply(response)
+                break;
+                
             case '>':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await functionEval(query)
@@ -1761,6 +1772,18 @@ await reply('wait')
             case 'test':
                 test = await bot.telegram.getChatMembersCount(lol.message.chat.id);
                 console.log(test);
+                break;
+
+case 'poll':
+                let a = query.split("|").slice(1);
+
+if (!a[1]) throw "Format\n/halo |ya|gak";
+if (a[12]) throw "Kebanyakan pilihan, Format\n/halo |ya|gak";
+if (new Set(a).size !== a.length) throw "Ada kesamaan isi dalam pesan!";
+
+let cap = "*Polling Request By* " + user.full_name + "\n*Pesan:* " + query.split("|")[0];
+let options = a;
+    await bot.telegram.sendPoll(lol.message.chat.id, cap, JSON.stringify(options))
                 break;
 
             case 'return':
