@@ -28,7 +28,8 @@
         "syntax-error": "*",
         "performance-now": "*",
         "moment-timezone": "*",
-        "child_process": "*"
+        "child_process": "*",
+        "request": "*"
     },
     "devDependencies": {},
     "scripts": {

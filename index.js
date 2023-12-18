@@ -171,10 +171,77 @@ talkai,
 toAnime
 } from './lib/ai.js';
 import {
+    sandroid1,
+    sanime,
+    sanoboydl,
+    sanoboys,
+    sapkmirror,
+    sapkmody,
+    sartinama,
+    sasupanfilm,
+    sasupanfilminfo,
+    sbacaresep,
+    scarigc,
+    scariresep,
+    schara,
+    scorona,
+    sdevianart,
+    sdewabatch,
+    sdrakor,
+    sfacebook,
+    sfilm,
+    sgempa,
+    sghfollower,
+    sghfollowing,
+    sghuser,
+    sgoredl,
+    shappymod,
+    shappymoddl,
+    sigdl,
+    sigdl2,
+    sigstalk,
+    sigstory,
+    sjob,
+    sjoox,
+    skiryu,
+    skonachan,
+    smanga,
+    smangatoon,
+    smediafire,
+    smerdekanews,
+    smetronews,
+    spalingmurah,
+    spin,
+    spinterest2,
+    squotes,
+    srandomgore,
+    srandomtt,
+    srexdl,
+    srexdldown,
+    ssearchgore,
+    ssfiledown,
+    ssfilesearch,
+    ssoundcloud,
+    sstickersearch,
+    stextmakervid,
+    stiktok,
+    strendtwit,
+    stwitter,
+    swallpapercave,
+    swallpapercraft,
+    swallpaperhd,
+    swattpad,
+    swebtoons,
+    swikisearch,
+    szerochan,
+    szippydl
+} from './lib/scrape.js';
+import {
     Telegraf,
     Markup
 } from 'telegraf';
 import help from './lib/help.js';
+
 import tele from './lib/tele.js';
 import chalk from 'chalk';
 import os from 'os';
@@ -1756,6 +1823,393 @@ await reply('wait')
                 response = await filebin(databuff)
                 await reply(response)
                 break;
+                
+                
+case 'sandroid1':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sandroid1(query)
+                await reply(response)
+                break;
+                
+                case 'sanime':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sanime(query)
+                await reply(response)
+                break;
+                
+                case 'sanoboydl':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sanoboydl(query)
+                await reply(response)
+                break;
+                
+                case 'sanoboys':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sanoboys(query)
+                await reply(response)
+                break;
+                
+                case 'sapkmirror':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sapkmirror(query)
+                await reply(response)
+                break;
+                
+                case 'sapkmody':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sapkmody(query)
+                await reply(response)
+                break;
+                
+                case 'sartinama':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sartinama(query)
+                await reply(response)
+                break;
+                
+                case 'sasupanfilm':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sasupanfilm(query)
+                await reply(response)
+                break;
+                
+                case 'sasupanfilminfo':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sasupanfilminfo(query)
+                await reply(response)
+                break;
+                
+                case 'sbacaresep':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sbacaresep(query)
+                await reply(response)
+                break;
+                
+                case 'scarigc':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await scarigc(query)
+                await reply(response)
+                break;
+                
+                case 'scariresep':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await scariresep(query)
+                await reply(response)
+                break;
+                
+                case 'schara':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await schara(query)
+                await reply(response)
+                break;
+                
+                case 'scorona':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await scorona(query)
+                await reply(response)
+                break;
+                
+                case 'sdevianart':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sdevianart(query)
+                await reply(response)
+                break;
+                
+                case 'sdewabatch':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sdewabatch(query)
+                await reply(response)
+                break;
+                
+                case 'sdrakor':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sdrakor(query)
+                await reply(response)
+                break;
+                
+                case 'sfacebook':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sfacebook(query)
+                await reply(response)
+                break;
+                
+                case 'sfilm':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sfilm(query)
+                await reply(response)
+                break;
+                
+                case 'sgempa':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sgempa(query)
+                await reply(response)
+                break;
+                
+                case 'sghfollower':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sghfollower(query)
+                await reply(response)
+                break;
+                
+                case 'sghfollowing':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sghfollowing(query)
+                await reply(response)
+                break;
+                
+                case 'sghuser':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sghuser(query)
+                await reply(response)
+                break;
+                
+                case 'sgoredl':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sgoredl(query)
+                await reply(response)
+                break;
+                
+                case 'shappymod':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await shappymod(query)
+                await reply(response)
+                break;
+                
+                case 'shappymoddl':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await shappymoddl(query)
+                await reply(response)
+                break;
+                
+                case 'sigdl':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sigdl(query)
+                await reply(response)
+                break;
+                
+                case 'sigdl2':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sigdl2(query)
+                await reply(response)
+                break;
+                
+                case 'sigstalk':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sigstalk(query)
+                await reply(response)
+                break;
+                
+                case 'sigstory':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sigstory(query)
+                await reply(response)
+                break;
+                
+                case 'sjob':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sjob(query)
+                await reply(response)
+                break;
+                
+                case 'sjoox':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sjoox(query)
+                await reply(response)
+                break;
+                
+                case 'skiryu':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await skiryu(query)
+                await reply(response)
+                break;
+                
+                case 'skonachan':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await skonachan(query)
+                await reply(response)
+                break;
+                
+                case 'smanga':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await smanga(query)
+                await reply(response)
+                break;
+                
+                case 'smangatoon':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await smangatoon(query)
+                await reply(response)
+                break;
+                
+                case 'smediafire':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await smediafire(query)
+                await reply(response)
+                break;
+                
+                case 'smerdekanews':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await smerdekanews(query)
+                await reply(response)
+                break;
+                
+                case 'smetronews':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await smetronews(query)
+                await reply(response)
+                break;
+                
+                case 'spalingmurah':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await spalingmurah(query)
+                await reply(response)
+                break;
+                
+                case 'spin':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await spin(query)
+                await reply(response)
+                break;
+                
+                case 'spinterest2':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await spinterest2(query)
+                await reply(response)
+                break;
+                
+                case 'squotes':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await squotes(query)
+                await reply(response)
+                break;
+                
+                case 'srandomgore':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await srandomgore(query)
+                await reply(response)
+                break;
+                
+                case 'srandomtt':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await srandomtt(query)
+                await reply(response)
+                break;
+                
+                case 'srexdl':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await srexdl(query)
+                await reply(response)
+                break;
+                
+                case 'srexdldown':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await srexdldown(query)
+                await reply(response)
+                break;
+                
+                case 'ssearchgore':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ssearchgore(query)
+                await reply(response)
+                break;
+                
+                case 'ssfiledown':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ssfiledown(query)
+                await reply(response)
+                break;
+                
+                case 'ssfilesearch':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ssfilesearch(query)
+                await reply(response)
+                break;
+                
+                case 'ssoundcloud':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ssoundcloud(query)
+                await reply(response)
+                break;
+                
+                case 'sstickersearch':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await sstickersearch(query)
+                await reply(response)
+                break;
+                
+                case 'stextmakervid':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await stextmakervid(query)
+                await reply(response)
+                break;
+                
+                case 'stiktok':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await stiktok(query)
+                await reply(response)
+                break;
+                
+                case 'strendtwit':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await strendtwit(query)
+                await reply(response)
+                break;
+                
+                case 'stwitter':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await stwitter(query)
+                await reply(response)
+                break;
+                
+                case 'swallpapercave':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await swallpapercave(query)
+                await reply(response)
+                break;
+                
+                case 'swallpapercraft':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await swallpapercraft(query)
+                await reply(response)
+                break;
+                
+                case 'swallpaperhd':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await swallpaperhd(query)
+                await reply(response)
+                break;
+                
+                case 'swattpad':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await swattpad(query)
+                await reply(response)
+                break;
+                
+                case 'swebtoons':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await swebtoons(query)
+                await reply(response)
+                break;
+                
+                case 'swikisearch':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await swikisearch(query)
+                await reply(response)
+                break;
+                
+                case 'szerochan':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await szerochan(query)
+                await reply(response)
+                break;
+                
+                case 'szippydl':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await szippydl(query)
+                await reply(response)
+                break;
+                
+                
                 
             case '>':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
