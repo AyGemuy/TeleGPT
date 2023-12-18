@@ -88,7 +88,8 @@ import {
     CarbonifyV2
 } from './lib/carbonify.js';
 import {
-    infoCuaca
+    infoCuaca,
+    infoGempa
 } from './lib/info.js';
 import {
     dojindsgetimg,
@@ -165,7 +166,8 @@ blackboxchat,
 blackboximg,
 lbbAi,
 mariTalk,
-talkai
+talkai,
+toAnime
 } from './lib/ai.js';
 import {
     Telegraf
@@ -382,6 +384,15 @@ await lol.sendChatAction(action);
                 console.log(chalk.whiteBright('├'), chalk.cyanBright('[ FILE URL ]'), chalk.yellowBright(mediaLink));
             }
         }
+const messages = [{
+            role: 'system',
+            content: 'You are a helpful assistant.'
+        },
+        {
+            role: 'user',
+            content: (query)
+        },
+    ];
 
         switch (command) {
             case 'help':
@@ -1065,8 +1076,12 @@ await lol.sendChatAction(action);
                 response = await webtoons(query)
                 await reply(response)
                 break;
-
-
+                
+                case 'gempa':
+                response = await infoGempa()
+                await reply(response)
+                break;
+                
             case 'cuaca':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await infoCuaca(query)
@@ -1424,38 +1439,118 @@ Nama Pengguna Kamu Akan Hilang Dari Database Bot Apa Bila Bot Sedang Perbaikan A
                 
                 case 'acytoo':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await Acytoo(query)
-                await reply(response)
+                try {
+        const getAcytooResponse = async (messages, proxy = {}) => {
+    const responseChunks = await Acytoo.createAsyncGenerator('gpt-3.5-turbo', messages, proxy);
+    const responseArray = [];
+    for await (const chunk of responseChunks) {
+        responseArray.push(chunk);
+    }
+    return responseArray.join('');
+};
+
+    response = await getAcytooResponse(messages);
+        await reply(response);
+    } catch (error) {
+        console.error('Error:', error);
+       await reply(eror);
+    }
                 break;
                 
                 case 'aichat':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await Aichat(query)
-                await reply(response)
+                
+        const output = await Aichat.createAsync("gpt-3.5-turbo", messages);
+        await reply(output);
                 break;
                 
                 case 'aivvm':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await Aivvm(query)
-                await reply(response)
+                
+    try {
+        const getAivvmResponse = async (messages, proxy = {}) => {
+    const responseChunks = await Aivvm.createAsyncGenerator('gpt-3.5-turbo', messages, true, {});
+    const responseArray = [];
+    for await (const chunk of responseChunks) {
+        responseArray.push(chunk);
+    }
+    return responseArray.join('');
+};
+         response = await getAivvmResponse(messages);
+
+        await reply(response);
+    } catch (error) {
+        console.error('Error:', error);
+        await reply('Terjadi kesalahan saat berkomunikasi dengan AI Service.');
+    }
                 break;
                 
                 case 'bardie':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await Bardie(query)
-                await reply(response)
+                const bard = new Bardie();
+                if (!isQuotedImage && !mediaLink) {
+	response = await bard.question({
+		ask: query
+	});
+} else {
+	response = await bard.questionWithImage({
+		ask: query,
+		image: mediaLink
+	});
+	}
+                await reply(response.content)
                 break;
                 
                 case 'bingimagecreator':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await BingImageCreator(query)
-                await reply(response)
+                try {
+        const res = new BingImageCreator({ cookie: "1CBrGSpML0Fz8WQSDRzqWaeyL9zle6nYrZn6uCwVyEEO8Nqdcs4B2UGs-zBkYVeTjYmvveLcSvkWvDtPHVV8CtUt0l15dzoSU_ARtKpYzDes8WjEKQPjWX64ckraHm676gEcRMa2dVE_nGuCLpFvnkDBdzkO_Kfesi4LgVMDrucBRmOPrSOVYzqPJVFXtNIOLDlW5xOUUi3rS8ltxZfSoCQ" });
+        const data = await res.createImage(query);
+
+        const filteredData = data.filter(file => !file.endsWith('.svg'));
+        const totalCount = filteredData.length;
+
+        if (totalCount > 0) {
+            for (let i = 0; i < totalCount; i++) {
+                try {
+                    await lol.replyWithPhoto({
+                    url: filteredData[i]
+                }, {
+                    caption: `Image **(${i + 1}/${totalCount})**`,
+                    parse_mode: "Markdown"
+                })
+                } catch (error) {
+                    console.error(`Error sending file: ${error.message}`);
+                    await reply(`Failed to send image *(${i + 1}/${totalCount})*`);
+                }
+            }
+        } else {
+            await reply('No images found after filtering.');
+        }
+    } catch (error) {
+        console.error(`Error in handler: ${error.message}`);
+        await reply('An error occurred while processing the request.');
+    }
                 break;
                 
                 case 'chatbase':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await ChatBase(query)
-                await reply(response)
+                
+    try {
+        const getChatBaseResponse = async (messages, proxy = {}) => {
+    const responseChunks = await ChatBase.createAsyncGenerator('gpt-3.5-turbo', messages, true, {});
+    const responseArray = [];
+    for await (const chunk of responseChunks) {
+        responseArray.push(chunk);
+    }
+    return responseArray.join('');
+};
+        response = await getChatBaseResponse(messages);
+
+        await reply(response);
+    } catch (error) {
+        console.error('Error:', error);
+    }
                 break;
                 
                 case 'chatgptbing':
@@ -1466,20 +1561,137 @@ Nama Pengguna Kamu Akan Hilang Dari Database Bot Apa Bila Bot Sedang Perbaikan A
                 
                 case 'cohereapi':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await CohereAPI(query)
+                const cohereApiKey = 'mJ9GVG9lcV8iO7TJYOuQjqfcw4JB2y1CmirFXdX1';
+            const textGenerationApi = new CohereAPI(cohereApiKey);
+                    response = await textGenerationApi.start('command-nightly', [query]);
                 await reply(response)
                 break;
                 
                 case 'hercai':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await Hercai(query)
-                await reply(response)
+                const client = new Hercai();
+                const input_data = ["chatv2", "chatbeta", "chatv3-beta", "imagev1", "imagev2", "imagev2-beta", "imagev3", "imagelexica", "imageprodia"]
+
+    let [urutan, tema] = query.split("|")
+    if (!tema) return reply("Input query!\n*Example:*\n.hercai [nomor]|[query]")
+await reply('wait')
+    try {
+        let data = input_data.map((item, index) => ({
+            title: item.replace(/[_-]/g, ' ').replace(/\..*/, ''),
+            id: item
+        }));
+        if (!urutan) return reply("Input query!\n*Example:*\n.hercai [nomor]|[query]\n\n*Pilih angka yg ada*\n" + data.map((item, index) => `*${index + 1}.* ${item.title}`).join("\n"))
+        if (isNaN(urutan)) return reply("Input query!\n*Example:*\n.hercai [nomor]|[query]\n\n*Pilih angka yg ada*\n" + data.map((item, index) => `*${index + 1}.* ${item.title}`).join("\n"))
+        if (urutan > data.length) return reply("Input query!\n*Example:*\n.hercai [nomor]|[query]\n\n*Pilih angka yg ada*\n" + data.map((item, index) => `*${index + 1}.* ${item.title}`).join("\n"))
+        let out = data[urutan - 1].id
+        if (out == "chatv2") {
+            response = await client.question({
+                model: "v2",
+                content: tema
+            });
+            await reply(response.reply)
+        } else if (out == "chatbeta") {
+            response = await client.question({
+                model: "beta",
+                content: tema
+            });
+            await reply(response.reply)
+        } else if (out == "chatv3-beta") {
+            response = await client.question({
+                model: "v3-beta",
+                content: tema
+            });
+            await reply(response.reply)
+        } else if (out == "imagev1") {
+            response = await client.drawImage({
+                model: "v1",
+                prompt: tema
+            });
+            await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih effect *${out}* nya\nRequest by: ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+        } else if (out == "imagev2") {
+            response = await client.drawImage({
+                model: "v2",
+                prompt: tema
+            });
+            await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih effect *${out}* nya\nRequest by: ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+        } else if (out == "imagev2-beta") {
+            response = await client.drawImage({
+                model: "v2-beta",
+                prompt: tema
+            });
+            await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih effect *${out}* nya\nRequest by: ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+        } else if (out == "imagev3") {
+            response = await client.drawImage({
+                model: "v3",
+                prompt: tema
+            });
+            await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih effect *${out}* nya\nRequest by: ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+        } else if (out == "imagelexica") {
+            response = await client.drawImage({
+                model: "lexica",
+                prompt: tema
+            });
+            await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih effect *${out}* nya\nRequest by: ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+        } else if (out == "imageprodia") {
+            response = await client.drawImage({
+                model: "prodia",
+                prompt: tema
+            });
+            await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih effect *${out}* nya\nRequest by: ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+        }
+    } catch (e) {
+        await reply('eror')
+    }
                 break;
                 
                 case 'liaobots':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await Liaobots(query)
-                await reply(response)
+                try {
+        const getLiaobotsResponse = async (messages, proxy = {}) => {
+    const responseChunks = await (new Liaobots()).createAsyncGenerator('gpt-3.5-turbo', messages, proxy);
+    const responseArray = [];
+    for await (const chunk of responseChunks) {
+        responseArray.push(chunk);
+    }
+    return responseArray.join('');
+};
+        response = await getLiaobotsResponse(messages);
+
+        await reply(response);
+    } catch (error) {
+        console.error('Error:', error);
+        await reply(error);
+    }
                 break;
                 
                 case 'blackboxchat':
@@ -1490,7 +1702,10 @@ Nama Pengguna Kamu Akan Hilang Dari Database Bot Apa Bila Bot Sedang Perbaikan A
                 
                 case 'blackboximg':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
-                response = await blackboximg(query)
+                if (!(isQuotedImage)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
+                databuff = await getDataBuffer(mediaLink);
+                response = await blackboximg(databuff, query)
                 await reply(response)
                 break;
                 
@@ -1518,7 +1733,19 @@ Nama Pengguna Kamu Akan Hilang Dari Database Bot Apa Bila Bot Sedang Perbaikan A
                 await reply(response)
                 break;
                 
-
+                case 'toanime':
+                if (!(isQuotedImage)) return await reply(`Example: ${prefix + command} with (Reply Media!)`);
+                if (!mediaLink) return await reply("Media link tidak ada!");
+                databuff = await getDataBuffer(mediaLink);
+                response = await toAnime(databuff)
+                await lol.replyWithPhoto({
+                    url: response.url
+                }, {
+                    caption: `Nih ${user.full_name}`,
+                    parse_mode: "Markdown"
+                })
+                break;
+                
             case '>':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await functionEval(query)
