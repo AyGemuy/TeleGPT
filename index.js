@@ -304,39 +304,45 @@ if (bot_token === '') {
 const bot = new Telegraf(bot_token);
 
 bot.on('new_chat_members', async (lol) => {
-    var message = lol.message;
-    var pp_group = await tele.getPhotoProfile(message.chat.id);
-    var groupname = message.chat.title;
-    var groupmembers = await bot.telegram.getChatMembersCount(message.chat.id);
-    for (x of message.new_chat_members) {
-        var pp_user = await tele.getPhotoProfile(x.id);
-        var full_name = tele.getUser(x).full_name;
-        console.log(chalk.whiteBright('├'), chalk.cyanBright('[  JOINS  ]'), chalk.whiteBright(full_name), chalk.greenBright('join in'), chalk.whiteBright(groupname));
+    const message = lol.message;
+    const groupname = message.chat.title;
+    
+    for (const member of message.new_chat_members) {
+        const full_name = member.first_name + (member.last_name ? ` ${member.last_name}` : '');
+        console.log('├', '[  JOINS  ]', full_name, 'join in', groupname);
+        
         await lol.replyWithPhoto({
-            url: `https://picsum.photos/2560/1600`,
-        });
+                    url: `https://picsum.photos/2560/1600`
+                }, {
+                    caption: full_name + '\n\n[  JOINS  ]',
+                    parse_mode: "Markdown"
+                });
     }
 });
 
-bot.on('left_chat_member', async (lol) => {
-    var message = lol.message;
-    var pp_group = await tele.getPhotoProfile(message.chat.id);
-    var pp_user = await tele.getPhotoProfile(message.left_chat_member.id);
-    var pp_group = await tele.getPhotoProfile(message.chat.id);
-    var groupname = message.chat.title;
-    var groupmembers = await bot.telegram.getChatMembersCount(message.chat.id);
-    var pp_user = await tele.getPhotoProfile(message.left_chat_member.id);
-    var full_name = tele.getUser(message.left_chat_member).full_name;
-    console.log(chalk.whiteBright('├'), chalk.cyanBright('[  LEAVE  ]'), chalk.whiteBright(full_name), chalk.greenBright('leave from'), chalk.whiteBright(groupname));
-    await lol.replyWithPhoto({
-        url: `https://picsum.photos/2560/1600`
-    });
+bot.on('left_chat_member', async (ctx) => {
+    const message = ctx.message;
+    
+    if (parseInt(message.left_chat_member.id) !== parseInt(bot_token.split(':')[0])) {
+        const groupname = message.chat.title;
+        const full_name = message.left_chat_member.first_name + (message.left_chat_member.last_name ? ` ${message.left_chat_member.last_name}` : '');
+
+        console.log('├', '[  LEAVE  ]', full_name, 'leave from', groupname);
+
+        await ctx.replyWithPhoto({
+            url: 'https://picsum.photos/2560/1600',
+        }, {
+            caption: `${full_name}\n\n[  LEAVE  ]`,
+            parse_mode: 'Markdown',
+        });
+    }
 });
 
 bot.command('start', async (lol) => {
     user = tele.getUser(lol.message.from);
     await help.start(lol, user.full_name);
-    await lol.deleteMessage();
+    const isGroup = lol.chat.type.includes("group");
+    if (!isGroup) return await lol.deleteMessage();
 });
 
 bot.command('help', async (lol) => {
@@ -345,6 +351,7 @@ bot.command('help', async (lol) => {
 });
 
 bot.on('callback_query', async (lol) => {
+    var groupname = lol.chat.title;
     cb_data = lol.callbackQuery.data.split('-');
     user_id = Number(cb_data[1]);
     if (lol.callbackQuery.from.id != user_id) return lol.answerCbQuery('Sorry, You do not have the right to access this button.', {
@@ -355,7 +362,7 @@ bot.on('callback_query', async (lol) => {
     chatid = lol.chat.id;
     const isGroup = lol.chat.type.includes("group");
     if (!isGroup) console.log(chalk.whiteBright('├'), chalk.cyanBright('[ ACTIONS ]'), chalk.whiteBright(callback_data), chalk.greenBright('from'), chalk.whiteBright(user.full_name));
-    if (isGroup) console.log(chalk.whiteBright('├'), chalk.cyanBright('[ ACTIONS ]'), chalk.whiteBright(callback_data), chalk.greenBright('from'), chalk.whiteBright(user.full_name), chalk.greenBright('in'), chalk.whiteBright(groupName));
+    if (isGroup) console.log(chalk.whiteBright('├'), chalk.cyanBright('[ ACTIONS ]'), chalk.whiteBright(callback_data), chalk.greenBright('from'), chalk.whiteBright(user.full_name), chalk.greenBright('in'), chalk.whiteBright(groupname));
     if (callback_data == 'help') return await help.help(lol, user.full_name, user_id);
     await help[callback_data](lol, user_id.toString());
 });
