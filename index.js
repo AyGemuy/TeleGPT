@@ -132,7 +132,27 @@ import {
     webtoons,
     facebook as faceBooks,
     searchGit,
-    getHentaiList
+    getHentaiList,
+    XPanas,
+    WikiMedia,
+    SoundCloudeS,
+    RingTone,
+    PlayStore,
+    BukaLapak,
+    TixID,
+    AcaraNow,
+    Jadwal_Sepakbola,
+    JadwalTV,
+    Steam,
+    Steam_Detail,
+    WattPad,
+    LinkWa,
+    Lirik2,
+    KBBI,
+    Nomina,
+    KodePos,
+    ListHero,
+    Hero
 } from './lib/search.js';
 import {
     catbox,
@@ -2206,6 +2226,126 @@ case 'sandroid1':
                 case 'szippydl':
                 if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
                 response = await szippydl(query)
+                await reply(response)
+                break;
+                
+                case 'acaranow':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await AcaraNow(query)
+                await reply(response)
+                break;
+                
+                case 'bukalapak':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await BukaLapak(query)
+                await reply(response)
+                break;
+                
+                case 'hero':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Hero(query)
+                await reply(response)
+                break;
+                
+                case 'jadwaltv':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await JadwalTV(query)
+                await reply(response)
+                break;
+                
+                case 'jadwal_sepakbola':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Jadwal_Sepakbola(query)
+                await reply(response)
+                break;
+                
+                case 'kbbi':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await KBBI(query)
+                await reply(response)
+                break;
+                
+                case 'kodepos':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await KodePos(query)
+                await reply(response)
+                break;
+                
+                case 'linkwa':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await LinkWa(query)
+                await reply(response)
+                break;
+                
+                case 'lirik2':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Lirik2(query)
+                await reply(response)
+                break;
+                
+                case 'listhero':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await ListHero(query)
+                await reply(response)
+                break;
+                
+                case 'nomina':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Nomina(query)
+                await reply(response)
+                break;
+                
+                case 'playstore':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await PlayStore(query)
+                await reply(response)
+                break;
+                
+                case 'ringtone':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await RingTone(query)
+                await reply(response)
+                break;
+                
+                case 'soundcloudes':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await SoundCloudeS(query)
+                await reply(response)
+                break;
+                
+                case 'steam':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Steam(query)
+                await reply(response)
+                break;
+                
+                case 'steam_detail':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await Steam_Detail(query)
+                await reply(response)
+                break;
+                
+                case 'tixid':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await TixID(query)
+                await reply(response)
+                break;
+                
+                case 'wattpad':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await WattPad(query)
+                await reply(response)
+                break;
+                
+                case 'wikimedia':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await WikiMedia(query)
+                await reply(response)
+                break;
+                
+                case 'xpanas':
+                if (args.length == 0) return await reply(`Example: ${prefix + command} Hello!`);
+                response = await XPanas(query)
                 await reply(response)
                 break;
                 
